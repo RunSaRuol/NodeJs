@@ -1,11 +1,21 @@
+require('dotenv').config();
+// console.log(process.env);
 var express =require('express');
 
 var bodyParser =require('body-parser');
+var  cookieParser = require('cookie-parser');
 // var shortid = require('shortid'); 
 
 // var db =require('./db');
 
 var userRoutes = require('./routes/user.route');
+var authRoutes =require('./routes/auth.route'); 
+var productRoutes =require('./routes/product.route');
+var cartRoute = require('./routes/cart.route');  
+var transferRoute = require('./routes/transfer.route'); 
+
+var authMiddleware = require('./middlewares/auth.middlewares');
+var sessionMiddleware = require('./middlewares/session.middleware');
 
 var port = 3000;
 var app = express();
@@ -14,8 +24,10 @@ var app = express();
 app.set('view engine', 'pug');
 app.set('views','./views');
 
-app.use(bodyParser.json()) // for parsing application/json
-app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
+app.use(bodyParser.json()); // for parsing application/json
+app.use(bodyParser.urlencoded({ extended: true }));// for parsing application/x-www-form-urlencoded
+app.use(cookieParser(process.env.SESSION_SECRET));
+app.use(sessionMiddleware);
 
 // var users = [
 //     {id:1,name :'Thinh'},
@@ -26,7 +38,11 @@ app.use(express.static('public'));
 app.get('/style/custom.css', function(request,response){
     response.send('abc');
 });
-app.use('/users',userRoutes);
+app.use('/users',authMiddleware.requireAuth,userRoutes);
+app.use('/auth',authRoutes);
+app.use('/products',authMiddleware.requireAuth,productRoutes);  
+app.use('/cart',cartRoute);
+app.use('/transfer',authMiddleware.requireAuth,transferRoute);
 
 // app.get('/users',function(request,response){
 //     response.render('users/index',{

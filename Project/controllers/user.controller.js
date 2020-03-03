@@ -26,6 +26,7 @@ module.exports.search = function(request,response){
 }
 
 module.exports.create = function(request,response){
+    console.log(request.cookies);
     response.render('users/create');
     }
 
@@ -44,22 +45,9 @@ module.exports.postCreate = function(request,response){
     // users.push(request.body);
     // response.redirect('')
     request.body.id = shortid.generate();
-    var errors = [];
-    if(!request.body.name){
-        errors.push("Name is requied");
-    }
-    if(!request.body.phone)
-    {
-        errors.push("Phone is requied");
-    } 
-    if(errors.length){
-        response.render('users/create',{
-            errors : errors,
-            values: request.body
-        });
-
-        return;
-    }
+    request.body.avatar = request.file.path.split('\\').slice(1).join('\\');  
+    // request.body.avatar = request.file.path;  
+    
     db.get('users').push(request.body).write();
     response.redirect('/users'); 
     }
@@ -67,3 +55,7 @@ module.exports.postCreate = function(request,response){
 //       var id =  request.params.id;
 //       var user =db.delete('users').
 //   }  
+module.exports.getCookie = function(request,response,next){
+    response.cookie('user-id',12345);
+    response.send('Nguyen Van Ruon Hello World');
+}

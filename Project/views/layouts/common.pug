@@ -11,8 +11,16 @@ html
       #navbarSupportedContent.collapse.navbar-collapse
         ul.navbar-nav.mr-auto
           li.nav-item.active
-            a.nav-link(href='/')| Home
+            a.nav-link(href='users')| Home
           li.nav-item
-            a.nav-link(href='/users') Link
-      .container.pt-5
-    block content
+            a.nav-link(href='/users') Users
+          li.nav-item
+            a.nav-link(href='/products') Product
+          li.nav-item
+            a.nav-link(href='/cart') Cart
+          li.nav-item
+            a.nav-link(href='/transfer') Transfer
+      if user
+       p= user.name
+    .container.pt-5
+      block content
