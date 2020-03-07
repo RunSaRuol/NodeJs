@@ -4,6 +4,9 @@ var express =require('express');
 
 var bodyParser =require('body-parser');
 var  cookieParser = require('cookie-parser');
+var mongoose = require('mongoose');
+
+mongoose.connect(process.env.MONGO_URL);
 // var shortid = require('shortid'); 
 
 // var db =require('./db');
@@ -13,6 +16,7 @@ var authRoutes =require('./routes/auth.route');
 var productRoutes =require('./routes/product.route');
 var cartRoute = require('./routes/cart.route');  
 var transferRoute = require('./routes/transfer.route'); 
+var apiProductRoute = require('./api/routes/product.route');
 
 var authMiddleware = require('./middlewares/auth.middlewares');
 var sessionMiddleware = require('./middlewares/session.middleware');
@@ -43,6 +47,7 @@ app.use('/auth',authRoutes);
 app.use('/products',authMiddleware.requireAuth,productRoutes);  
 app.use('/cart',cartRoute);
 app.use('/transfer',authMiddleware.requireAuth,transferRoute);
+app.use('/api/products',apiProductRoute);
 
 // app.get('/users',function(request,response){
 //     response.render('users/index',{
