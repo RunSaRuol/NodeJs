@@ -21,7 +21,7 @@ var apiProductRoute = require('./api/routes/product.route');
 var authMiddleware = require('./middlewares/auth.middlewares');
 var sessionMiddleware = require('./middlewares/session.middleware');
 
-var port = 3000;
+var port = process.env.PORT || 3000;
 var app = express();
 
 
