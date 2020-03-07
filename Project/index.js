@@ -49,10 +49,9 @@ app.use('/cart',cartRoute);
 app.use('/transfer',authMiddleware.requireAuth,transferRoute);
 app.use('/api/products',apiProductRoute);
 
-// app.get('/users',function(request,response){
-//     response.render('users/index',{
-//         users: db.get('users').value()
-//     });
+app.get('/',function(request,response){
+    response.render('index')
+});
 
 // });
 // app.get('/users/search',function(request,response){
