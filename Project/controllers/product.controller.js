@@ -23,7 +23,6 @@ module.exports.index = async function(req,res,next){
 
 try{
     var products = await Product.find();
-    products.foo();
     res.render('products/index',{
         products:products
 
