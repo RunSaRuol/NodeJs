@@ -14,7 +14,11 @@ module.exports.postLogin = function(request,response){
     var user =db.get('users').find({email:email}).value();
     if(!user){
     response.render('auth/login',{
-        errors:['User does not exit. '],
+        errors:[
+            // 'User does not exit. '
+            'Ông Chú Còn Không Biết mà!!!'
+        ],
+        
         values :request.body
     });  
     return;
@@ -24,7 +28,8 @@ module.exports.postLogin = function(request,response){
     if(user.password !== hashedPassword){
         response.render('auth/login',{
             errors:[
-                'Wrong password.'
+                // 'Wrong password.'
+                'Ông Chú Còn Không Biết mà!!!'
             ],
             values :request.body
 
