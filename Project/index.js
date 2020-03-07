@@ -16,7 +16,7 @@ var authRoutes =require('./routes/auth.route');
 var productRoutes =require('./routes/product.route');
 var cartRoute = require('./routes/cart.route');  
 var transferRoute = require('./routes/transfer.route'); 
-var apiProductRoute = require('./api/routes/product.route');
+var apiProductRoute = require('./api/routes/product.routes');
 
 var authMiddleware = require('./middlewares/auth.middlewares');
 var sessionMiddleware = require('./middlewares/session.middleware');
